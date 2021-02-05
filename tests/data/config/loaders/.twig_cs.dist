@@ -1,0 +1,16 @@
+<?php
+
+use FriendsOfTwig\Twigcs\TemplateResolver\FileResolver;
+
+$finder = FriendsOfTwig\Twigcs\Finder\TemplateFinder::create()
+    ->in(__DIR__)
+;
+
+return \FriendsOfTwig\Twigcs\Config\Config::create()
+    ->setFinder($finder)
+    ->setTemplateResolver(new FileResolver(__DIR__))
+    ->setSeverity('warning')
+    ->setReporter('console')
+    ->setName('my-config')
+    ->setRuleSet(FriendsOfTwig\Twigcs\Ruleset\Official::class)
+;

@@ -71,6 +71,14 @@ class Scope
         return $scope;
     }
 
+    public function nest(self $scope): self
+    {
+        $scope->parent = $this;
+        $this->queue[] = $scope;
+
+        return $scope;
+    }
+
     public function leave(): self
     {
         return $this->parent ?? $this;
@@ -78,7 +86,7 @@ class Scope
 
     public function declare(string $name, Token $token)
     {
-        $this->queue[] = new Declaration($name, $token);
+        $this->queue[] = new Declaration($name, $token, $this);
     }
 
     public function use(string $name)
@@ -94,6 +102,11 @@ class Scope
     public function getQueue(): array
     {
         return $this->queue;
+    }
+
+    public function getParent(): self
+    {
+        return $this->parent;
     }
 
     public function flatten(): FlattenedScope
