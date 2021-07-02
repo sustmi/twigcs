@@ -228,6 +228,7 @@ class Twig3FunctionalTest extends TestCase
             ['{% set foo %}1{% endset %}{{ foo }}', null],
             ['{% set foo %}1{% endset %}{{ include("foo.html.twig", {foo: foo}) }}', null],
             ['{% set template = \'foo.html.twig\' %}{% include template %}', null],
+            ['{% for item in list %}{% set foo = item %}{% endfor %}{{ foo }}', 'Unused variable "foo".'],
 
             // import spacing
             ['{% import  "foo.html.twig" as foo %}{{ foo() }}', 'There should be 1 space before the source.'],
