@@ -255,6 +255,7 @@ class Twig3FunctionalTest extends TestCase
             ['{% from _self import foo as request %}{{ app.request.uri }}', 'Unused macro import "request".'],
             ['{% from _self import foo as macro %}{% macro foo() %}{% endmacro %}', 'Unused macro import "macro".'], // https://github.com/friendsoftwig/twigcs/issues/28
             ['{% import "macros.html.twig" as macros %} {{ macros.stuff() }}', null],
+            ['{% import "foo.html.twig" as foo %}{% macro bar() %}{{ foo.stuff() }}{% endmacro %}', null], // https://github.com/friendsoftwig/twigcs/issues/180
 
             // Complex include/embed spacing
             ['{% include "macros.html.twig"  ignore missing %}', 'There should be 1 space before the "ignore missing".'],
